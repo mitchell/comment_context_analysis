@@ -1,0 +1,12 @@
+
+
+Arash and Mitchell ---
+
+Great work on this document!  I like the idea, and it's something you can
+consider using later for research purposes.
+
+The ERD looks good, except you should make sure to underline the primary
+keys when you do your Detailed Design Doc.
+
+Total: 10% out of 10% which is an A-plus.
+
