@@ -48,4 +48,4 @@ Favorite Word Table:
 | favorite_word | text | Primary Key | "democracy" | The favorite word. |
 | uses | integer | | 4500 | The amount of times the word is used in the dataset. |
 | most_used | text | Foreign Key | "t5_2s30g" | The id of the subreddit this word is used most in. |
-![Alt text](comment-context-analysis-project/Screen Shot 2017-11-08 at 1.27.05 PM.png?raw=true "ERD Diagram")
+![Alt text](comment-context-analysis-project/detailedERD.png?raw=true "ERD Diagram")
