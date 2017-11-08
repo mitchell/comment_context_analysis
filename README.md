@@ -49,5 +49,5 @@ Favorite Word Table:
 | uses | integer | | 4500 | The amount of times the word is used in the dataset. |
 | most_used | text | Foreign Key | "t5_2s30g" | The id of the subreddit this word is used most in. |
 
-
+### 2.3 - A complete finalized Entity-Relationship Diagram [ERD] for the database [NOT hand-drawn, PLEASE!]
 ![Alt text](/detailedERD.png?raw=true "ERD Diagram")
