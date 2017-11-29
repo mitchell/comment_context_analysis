@@ -3,7 +3,7 @@ require 'neo4j-core'
 require 'neo4j/core/cypher_session/adaptors/http'
 require 'ruby-progressbar'
 
-# sreate adaptor and session to Neo4j server
+# create adaptor and session to Neo4j server
 adaptor = Neo4j::Core::CypherSession::Adaptors::HTTP.new 'http://neo4j:polarbear@localhost:7474' # rubocop:disable Metrics/LineLength
 session = Neo4j::Core::CypherSession.new adaptor
 
