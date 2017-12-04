@@ -10,16 +10,8 @@ session = Neo4j::Core::CypherSession.new adaptor
 # read contents of file to file
 file = File.read './first10000.json'
 
-# set up variables to read file line-by-line into an array of hashes
-file_array = []
-counter = 0
-file.each_line do |line|
-  line_hash = JSON.parse line
-  file_array[counter] = line_hash
-  counter += 1
-end
-
 # unwind and load array of hashes hash-by-hash into query and run query
+file_array = file.lines.collect { |line| JSON.parse line }
 query_progress = ProgressBar.create(title: 'Load Queries', starting_at: 0,
                                     total: file_array.length)
 to_query = <<QUERY
@@ -38,8 +30,8 @@ other_progress = ProgressBar.create(title: 'Other Queries', starting_at: 0,
 to_query = <<QUERY
   MATCH (c:Comment)
   MERGE (s:Subreddit {id: c.subreddit_id})
-    ON CREATE SET s.name = c.subreddit
-    ON MATCH SET s.comment_count = coalesce(s.comment_count, 0) + 1
+    ON CREATE SET s.name = c.subreddit, s.comment_count = 1
+    ON MATCH SET s.comment_count = s.comment_count + 1
 QUERY
 session.query to_query
 # session.query 'CREATE INDEX ON :Subreddit(name)'
@@ -67,7 +59,8 @@ other_progress.increment
 to_query = <<QUERY
   MATCH (c:Comment)
   MERGE (a:Author {name: c.author})
-    ON MATCH SET a.comment_count = coalesce(a.comment_count, 0) + 1
+    ON CREATE SET a.comment_count = 1
+    ON MATCH SET a.comment_count = a.comment_count + 1
   CREATE (a)-[:WROTE]->(c)
 QUERY
 session.query to_query

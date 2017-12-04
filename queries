@@ -1,0 +1,11 @@
+Top 10 authors with most comments in the sample set and their comments and subreddits
+MATCH (a:Author)
+WITH a ORDER BY a.comment_count DESC LIMIT 10
+MATCH p = (a)-[:WROTE]->(:Comment)-[:POSTED_IN]->(:Subreddit)
+RETURN p
+
+Top 10 comments by score in the sample set and their authors and subreddits
+MATCH (c:Comment)
+WITH c ORDER BY c.score DESC LIMIT 10
+MATCH p = (:Author)-[:WROTE]->(c)-[:POSTED_IN]->(:Subreddit)
+RETURN p
