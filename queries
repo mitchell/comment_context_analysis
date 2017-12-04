@@ -1,3 +1,8 @@
+Top 10 users by comment count and their cumulative karma based on comments in sample
+MATCH p = (a:Author)-[:WROTE]->(c:Comment)
+WITH a, sum(c.score) AS karma
+RETURN a, karma ORDER BY a.comment_count DESC LIMIT 10
+
 Top 10 authors with most comments in the sample set and their comments and subreddits
 MATCH (a:Author)
 WITH a ORDER BY a.comment_count DESC LIMIT 10
@@ -9,3 +14,9 @@ MATCH (c:Comment)
 WITH c ORDER BY c.score DESC LIMIT 10
 MATCH p = (:Author)-[:WROTE]->(c)-[:POSTED_IN]->(:Subreddit)
 RETURN p
+
+Top 10 authors by comment count and recommended subreddits based on subreddits other users from the same subreddit visit
+MATCH (a:Author)-[:WROTE]->(:Comment)-[:POSTED_IN]->(s:Subreddit)<-[:POSTED_IN]-(:Comment)<-[:WROTE]-(f:Author),
+      (f)-[:WROTE]->(:Comment)-[:POSTED_IN]->(n:Subreddit)
+WHERE NOT (a)-[:WROTE]->(:Comment)-[:POSTED_IN]->(n)
+RETURN a, f, n ORDER BY a.comment_count DESC LIMIT 10
