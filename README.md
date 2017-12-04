@@ -25,4 +25,4 @@ A Neo4j database of all the comments on the popular social media platform Reddit
 
 
 ### 2.3 - A complete finalized Entity-Relationship Diagram [ERD] for the database [NOT hand-drawn PLEASE!]
-![Alt text](/ERDdiagramfinal.png?raw=true ERD Diagram)
+![Alt text](/ERDdiagramfinal.png?raw=true "ERD Diagram")
