@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'json'
 require 'neo4j-core'
 require 'neo4j/core/cypher_session/adaptors/http'
@@ -8,7 +9,7 @@ adaptor = Neo4j::Core::CypherSession::Adaptors::HTTP.new 'http://neo4j:polarbear
 session = Neo4j::Core::CypherSession.new adaptor
 
 # read contents of file to file
-file = File.read './first10000.json'
+file = File.read './first3000.json'
 
 # unwind and load array of hashes hash-by-hash into query and run query
 file_array = file.lines.collect { |line| JSON.parse line }
@@ -22,7 +23,6 @@ file_array.each do |data|
   session.query to_query, json: data
   query_progress.increment
 end
-# session.query 'CREATE INDEX ON :Comment(id)'
 
 other_progress = ProgressBar.create(title: 'Other Queries', starting_at: 0,
                                     total: 5)
@@ -34,7 +34,6 @@ to_query = <<QUERY
     ON MATCH SET s.comment_count = s.comment_count + 1
 QUERY
 session.query to_query
-# session.query 'CREATE INDEX ON :Subreddit(name)'
 other_progress.increment
 
 # create relationship between posts with subreddits that match
@@ -65,7 +64,6 @@ to_query = <<QUERY
 QUERY
 session.query to_query
 other_progress.increment
-# session.query 'CREATE INDEX ON :Author(name)'
 
 # remove overlapping properties with comments from authors
 to_query = <<QUERY
